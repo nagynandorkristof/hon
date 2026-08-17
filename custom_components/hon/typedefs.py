@@ -10,25 +10,25 @@ if TYPE_CHECKING:
     from homeassistant.components.sensor import SensorEntityDescription
     from homeassistant.components.switch import SwitchEntityDescription
 
-    from .binary_sensor import HonBinarySensorEntityDescription
     from .button import HonButtonEntity, HonDataArchive, HonDeviceInfo
-    from .climate import (
+    from .descriptions.binary_sensor import HonBinarySensorEntityDescription
+    from .descriptions.climate import (
         HonACClimateEntityDescription,
         HonClimateEntityDescription,
     )
-    from .number import (
+    from .descriptions.number import (
         HonConfigNumberEntityDescription,
         HonNumberEntityDescription,
     )
-    from .select import (
+    from .descriptions.select import (
         HonConfigSelectEntityDescription,
         HonSelectEntityDescription,
     )
-    from .sensor import (
+    from .descriptions.sensor import (
         HonSensorEntityDescription,
         HonConfigSensorEntityDescription,
     )
-    from .switch import (
+    from .descriptions.switch import (
         HonControlSwitchEntityDescription,
         HonSwitchEntityDescription,
         HonConfigSwitchEntityDescription,
