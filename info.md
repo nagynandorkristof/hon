@@ -1,17 +1,6 @@
-# Haier hOn
-[![GitHub all releases](https://img.shields.io/github/downloads/Andre0512/hon/total?color=blue&label=total%20downloads)](https://tooomm.github.io/github-release-stats/?username=Andre0512&repository=hon)
-[![GitHub](https://img.shields.io/github/license/Andre0512/hon?color=red)](https://github.com/Andre0512/hon/blob/main/LICENSE)
-[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-donate-orange.svg)](https://www.buymeacoffee.com/andre0512)
+# Haier hOn (independent fork)
 
----
-Home Assistant integration for [Haier's mobile app hOn](https://hon-smarthome.com/) based on [pyhOn](https://github.com/Andre0512/pyhon).
-
----
-
-[![Supported Languages](https://img.shields.io/badge/Languages-28-royalblue)](https://github.com/Andre0512/hon#supported-languages)
-[![Supported Appliances](https://img.shields.io/badge/Appliances-11-forestgreen)](https://github.com/Andre0512/hon#supported-appliances)
-[![Supported Models](https://img.shields.io/badge/Models-134-yellowgreen)](https://github.com/Andre0512/hon#supported-appliances)
-[![Supported Entities](https://img.shields.io/badge/Entities-320-crimson)](https://github.com/Andre0512/hon#supported-appliances)  
+Home Assistant integration for [Haier's mobile app hOn](https://hon-smarthome.com/). This is a fork of [Andre0512/hon](https://github.com/Andre0512/hon), maintained independently with a vendored, modified copy of the [pyhOn](https://github.com/Andre0512/pyhOn) client rather than the upstream library. Not affiliated with or endorsed by Andre0512 or by Haier.
 
 ## Supported Appliances
 _Click to expand..._
@@ -23,7 +12,7 @@ _Click to expand..._
 ![Air Conditioner](assets/example_ac.png)
 
 ### Supported Air Conditioner models
-Support has been confirmed for these **22 models**, but many more will work. Please add already supported devices [with this form to complete the list](https://forms.gle/bTSD8qFotdZFytbf8).
+Support has been confirmed for these **22 models**, but many more compatible with the hOn app are likely to work as well.
 
 #### Haier
 - AD105S2SM3FA
@@ -96,7 +85,7 @@ Support has been confirmed for these **22 models**, but many more will work. Ple
 ![Air Purifier](assets/example_ap.png)
 
 ### Supported Air Purifier models
-Support has been confirmed for these **4 models**, but many more will work. Please add already supported devices [with this form to complete the list](https://forms.gle/bTSD8qFotdZFytbf8).
+Support has been confirmed for these **4 models**, but many more compatible with the hOn app are likely to work as well.
 
 #### Hoover
 - HHP30C011
@@ -142,7 +131,7 @@ Support has been confirmed for these **4 models**, but many more will work. Plea
 ![Dish Washer](assets/example_dw.png)
 
 ### Supported Dish Washer models
-Support has been confirmed for these **7 models**, but many more will work. Please add already supported devices [with this form to complete the list](https://forms.gle/bTSD8qFotdZFytbf8).
+Support has been confirmed for these **7 models**, but many more compatible with the hOn app are likely to work as well.
 
 #### Haier
 - XIB 3B2SFS-80
@@ -199,7 +188,7 @@ Support has been confirmed for these **7 models**, but many more will work. Plea
 <summary>Hood</summary>
 
 ### Supported Hood models
-Support has been confirmed for these **1 models**, but many more will work. Please add already supported devices [with this form to complete the list](https://forms.gle/bTSD8qFotdZFytbf8).
+Support has been confirmed for this **1 model**, but many more compatible with the hOn app are likely to work as well.
 
 #### Haier
 - HADG6DS46BWIFI
@@ -233,7 +222,7 @@ Support has been confirmed for these **1 models**, but many more will work. Plea
 <summary>Induction Hob</summary>
 
 ### Supported Induction Hob models
-Support has been confirmed for these **3 models**, but many more will work. Please add already supported devices [with this form to complete the list](https://forms.gle/bTSD8qFotdZFytbf8).
+Support has been confirmed for these **3 models**, but many more compatible with the hOn app are likely to work as well.
 
 #### Haier
 - HA2MTSJ68MC
@@ -276,7 +265,7 @@ Support has been confirmed for these **3 models**, but many more will work. Plea
 ![Oven](assets/example_ov.png)
 
 ### Supported Oven models
-Support has been confirmed for these **2 models**, but many more will work. Please add already supported devices [with this form to complete the list](https://forms.gle/bTSD8qFotdZFytbf8).
+Support has been confirmed for these **2 models**, but many more compatible with the hOn app are likely to work as well.
 
 #### Haier
 - HWO60SM2F3XH
@@ -318,7 +307,7 @@ Support has been confirmed for these **2 models**, but many more will work. Plea
 ![Fridge](assets/example_ref.png)
 
 ### Supported Fridge models
-Support has been confirmed for these **11 models**, but many more will work. Please add already supported devices [with this form to complete the list](https://forms.gle/bTSD8qFotdZFytbf8).
+Support has been confirmed for these **11 models**, but many more compatible with the hOn app are likely to work as well.
 
 #### Haier
 - HDPW5620ANPD
@@ -384,7 +373,7 @@ Support has been confirmed for these **11 models**, but many more will work. Ple
 ![Tumble Dryer](assets/example_td.png)
 
 ### Supported Tumble Dryer models
-Support has been confirmed for these **22 models**, but many more will work. Please add already supported devices [with this form to complete the list](https://forms.gle/bTSD8qFotdZFytbf8).
+Support has been confirmed for these **22 models**, but many more compatible with the hOn app are likely to work as well.
 
 #### Haier
 - HD80-A3959
@@ -457,7 +446,7 @@ Support has been confirmed for these **22 models**, but many more will work. Ple
 ![Wine Cellar](assets/example_wc.png)
 
 ### Supported Wine Cellar models
-Support has been confirmed for these **3 models**, but many more will work. Please add already supported devices [with this form to complete the list](https://forms.gle/bTSD8qFotdZFytbf8).
+Support has been confirmed for these **3 models**, but many more compatible with the hOn app are likely to work as well.
 
 #### Haier
 - HWS247FDU1
@@ -494,7 +483,7 @@ Support has been confirmed for these **3 models**, but many more will work. Plea
 ![Washer Dryer](assets/example_wd.png)
 
 ### Supported Washer Dryer models
-Support has been confirmed for these **15 models**, but many more will work. Please add already supported devices [with this form to complete the list](https://forms.gle/bTSD8qFotdZFytbf8).
+Support has been confirmed for these **15 models**, but many more compatible with the hOn app are likely to work as well.
 
 #### Haier
 - HWD100-B14978
@@ -601,7 +590,7 @@ Support has been confirmed for these **15 models**, but many more will work. Ple
 ![Washing Machine](assets/example_wm.png)
 
 ### Supported Washing Machine models
-Support has been confirmed for these **44 models**, but many more will work. Please add already supported devices [with this form to complete the list](https://forms.gle/bTSD8qFotdZFytbf8).
+Support has been confirmed for these **44 models**, but many more compatible with the hOn app are likely to work as well.
 
 #### Haier
 - HW80-B1439N
@@ -722,73 +711,27 @@ Support has been confirmed for these **44 models**, but many more will work. Ple
 
 ## Configuration
 
-**Method 1**: [![Open your Home Assistant instance and start setting up a new integration.](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=hon)
-
-**Method 2**: Settings > Devices & Services > Add Integration > **Haier hOn**  
-_If the integration is not in the list, you need to clear the browser cache._
+Settings > Devices & Services > Add Integration > **Haier hOn**.
+If the integration is not in the list, clear the browser cache and reload.
 
 ## Supported Languages
-Translation of internal names like programs are available for all languages which are official supported by the hOn app:
-* 🇸🇦 Arabic
-* 🇧🇬 Bulgarian
-* 🇨🇳 Chinese
-* 🇭🇷 Croatian
-* 🇨🇿 Czech
-* 🇩🇰 Danish
-* 🇳🇱 Dutch
-* 🇬🇧 English
-* 🇫🇮 Finnish
-* 🇫🇷 French
-* 🇩🇪 German
-* 🇬🇷 Greek
-* 🇮🇱 Hebrew
-* 🇭🇺 Hungarian
-* 🇮🇹 Italian
-* 🇳🇴 Norwegian
-* 🇵🇱 Polish
-* 🇵🇹 Portuguese
-* 🇷🇴 Romanian
-* 🇷🇺 Russian
-* 🇷🇸 Serbian
-* 🇸🇰 Slovak
-* 🇸🇮 Slovenian
-* 🇿🇦 Southern Ndebele
-* 🇪🇸 Spanish
-* 🇸🇪 Swedish
-* 🇹🇷 Turkish
-* 🇺🇦 Ukrainian
+Translation of internal names like programs are available for all languages officially supported by the hOn app:
 
-## Compatiblity
-Haier offers different apps for different markets. Some appliances are compatible with more than one app. This integration only supports appliances that can be controlled via hOn. Please download the hOn app and check compatibilty before you open an issue.   
-The apps on this (incomplete) list have been requested so far:
+Arabic, Bulgarian, Chinese, Croatian, Czech, Danish, Dutch, English, Finnish, French, German, Greek, Hebrew, Hungarian, Italian, Norwegian, Polish, Portuguese, Romanian, Russian, Serbian, Slovak, Slovenian, Southern Ndebele, Spanish, Swedish, Turkish, Ukrainian
 
-| App             | Main Market   | Supported                               | Alternative                                                                     |
-|-----------------|---------------|-----------------------------------------|---------------------------------------------------------------------------------|
-| Haier hOn       | Europe        | :heavy_check_mark:                      |                                                                                 |
-| Candy simply-Fi | Europe        | :grey_question: (only newer appliances) | [ofalvai/home-assistant-candy](https://github.com/ofalvai/home-assistant-candy) |
-| Hoover Wizard   | Europe        | :grey_question: (only newer appliances) |                                                                                 |
-| Haier Uhome     | China         | :x:                                     | [banto6/haier](https://github.com/banto6/haier)                                 |
-| Haier U+        | China         | :x:                                     |                                                                                 |
-| GE SmartHQ      | North America | :x:                                     | [simbaja/ha_gehome](https://github.com/simbaja/ha_gehome)                       |   
-| Haier Evo       | Russia        | :x:                                     |                                                                                 |
+## Compatibility
+Haier offers different apps for different markets. Some appliances are compatible with more than one app. This integration only supports appliances that can be controlled via hOn. Check the hOn app for compatibility before assuming an appliance is supported.
 
-## Contribute
-Want to help us to support more appliances? Or add more sensors? Or help with translating? Or beautify some icons or captions? 
-Check out the [project on GitHub](https://github.com/Andre0512/hon), every contribution is welcome!
+| App             | Main Market   | Supported                    | Alternative                                                                     |
+|-----------------|---------------|-------------------------------|---------------------------------------------------------------------------------|
+| Haier hOn       | Europe        | yes                           |                                                                                   |
+| Candy simply-Fi | Europe        | partial (newer appliances)    | [ofalvai/home-assistant-candy](https://github.com/ofalvai/home-assistant-candy) |
+| Hoover Wizard   | Europe        | partial (newer appliances)    |                                                                                   |
+| Haier Uhome     | China         | no                             | [banto6/haier](https://github.com/banto6/haier)                                 |
+| Haier U+        | China         | no                             |                                                                                   |
+| GE SmartHQ      | North America | no                             | [simbaja/ha_gehome](https://github.com/simbaja/ha_gehome)                       |
+| Haier Evo       | Russia        | no                             |                                                                                   |
 
-| Please add your appliances data to our [hon-test-data collection](https://github.com/Andre0512/hon-test-data). <br/>This helps us to develop new features and not to break compatibility in newer versions. |
-|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+## Origin
 
-## Useful Links
-* [GitHub repository](https://github.com/Andre0512/hon)
-* [pyhOn library](https://github.com/Andre0512/pyhOn)
-* [Release notes](https://github.com/Andre0512/hon/releases)
-* [Discussion and help](https://github.com/Andre0512/hon/discussions)
-* [Issues](https://github.com/Andre0512/hon/issues)
-
-## Support
-If you find this project helpful and would like to support its development, you can buy me a coffee! ☕
-
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/andre0512)
-
-Don't forget to star the repository if you found it useful! ⭐
+This fork started from [Andre0512/hon](https://github.com/Andre0512/hon) and [Andre0512/pyhOn](https://github.com/Andre0512/pyhOn). The appliance and entity mappings listed above were carried over from that project. This repository is maintained separately and is not kept in sync with upstream.
