@@ -1,7 +1,7 @@
 import logging
 from pathlib import Path
 
-import voluptuous as vol  # type: ignore[import-untyped]
+import voluptuous as vol
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_EMAIL, CONF_PASSWORD
 from homeassistant.exceptions import ConfigEntryAuthFailed, ConfigEntryNotReady
