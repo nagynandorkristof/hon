@@ -6,57 +6,19 @@ from homeassistant.components.button import ButtonEntityDescription, ButtonEntit
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.helpers.typing import HomeAssistantType
-from pyhon.appliance import HonAppliance
+from homeassistant.core import HomeAssistant
+from .pyhon.appliance import HonAppliance
 
 from .const import DOMAIN
+from .descriptions.button import BUTTONS
 from .entity import HonEntity
 from .typedefs import HonButtonType
 
 _LOGGER = logging.getLogger(__name__)
 
-BUTTONS: dict[str, tuple[ButtonEntityDescription, ...]] = {
-    "IH": (
-        ButtonEntityDescription(
-            key="startProgram",
-            name="Start Program",
-            icon="mdi:pot-steam",
-            translation_key="induction_hob",
-        ),
-    ),
-    "REF": (
-        ButtonEntityDescription(
-            key="startProgram",
-            name="Program Start",
-            icon="mdi:play",
-            translation_key="start_program",
-        ),
-        ButtonEntityDescription(
-            key="stopProgram",
-            name="Program Stop",
-            icon="mdi:stop",
-            translation_key="stop_program",
-        ),
-    ),
-    "FRE": (
-        ButtonEntityDescription(
-            key="startProgram",
-            name="Program Start",
-            icon="mdi:play",
-            translation_key="start_program",
-        ),
-        ButtonEntityDescription(
-            key="stopProgram",
-            name="Program Stop",
-            icon="mdi:stop",
-            translation_key="stop_program",
-        ),
-    ),
-}
-
 
 async def async_setup_entry(
-    hass: HomeAssistantType, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
+    hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
 ) -> None:
     entities: list[HonButtonType] = []
     for device in hass.data[DOMAIN][entry.unique_id]["hon"].appliances:
@@ -88,7 +50,7 @@ class HonButtonEntity(HonEntity, ButtonEntity):
 
 class HonDeviceInfo(HonEntity, ButtonEntity):
     def __init__(
-        self, hass: HomeAssistantType, entry: ConfigEntry, device: HonAppliance
+        self, hass: HomeAssistant, entry: ConfigEntry, device: HonAppliance
     ) -> None:
         super().__init__(hass, entry, device)
 
@@ -103,12 +65,12 @@ class HonDeviceInfo(HonEntity, ButtonEntity):
         persistent_notification.create(
             self._hass, f"````\n```\n{self._device.diagnose}\n```\n````", title
         )
-        _LOGGER.info(self._device.diagnose.replace(" ", "\u200B "))
+        _LOGGER.info(self._device.diagnose.replace(" ", "\u200b "))
 
 
 class HonDataArchive(HonEntity, ButtonEntity):
     def __init__(
-        self, hass: HomeAssistantType, entry: ConfigEntry, device: HonAppliance
+        self, hass: HomeAssistant, entry: ConfigEntry, device: HonAppliance
     ) -> None:
         super().__init__(hass, entry, device)
 

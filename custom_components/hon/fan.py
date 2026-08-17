@@ -8,35 +8,24 @@ from homeassistant.components.fan import (
     FanEntityFeature,
 )
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.core import callback
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.helpers.typing import HomeAssistantType
 from homeassistant.util.percentage import (
     percentage_to_ranged_value,
     ranged_value_to_percentage,
 )
-from pyhon.appliance import HonAppliance
-from pyhon.parameter.range import HonParameterRange
+from .pyhon.appliance import HonAppliance
+from .pyhon.parameter.range import HonParameterRange
 
 from .const import DOMAIN
+from .descriptions.fan import FANS
 from .entity import HonEntity
 
 _LOGGER = logging.getLogger(__name__)
 
 
-FANS: dict[str, tuple[FanEntityDescription, ...]] = {
-    "HO": (
-        FanEntityDescription(
-            key="settings.windSpeed",
-            name="Wind Speed",
-            translation_key="air_extraction",
-        ),
-    ),
-}
-
-
 async def async_setup_entry(
-    hass: HomeAssistantType, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
+    hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
 ) -> None:
     entities = []
     for device in hass.data[DOMAIN][entry.unique_id]["hon"].appliances:
@@ -56,7 +45,7 @@ class HonFanEntity(HonEntity, FanEntity):
 
     def __init__(
         self,
-        hass: HomeAssistantType,
+        hass: HomeAssistant,
         entry: ConfigEntry,
         device: HonAppliance,
         description: FanEntityDescription,

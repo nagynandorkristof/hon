@@ -2294,7 +2294,20 @@
                     "email": "Email",
                     "password": "Password"
                 }
+            },
+            "reauth_confirm": {
+                "description": "Re-enter the password for {email}",
+                "data": {
+                    "password": "Password"
+                }
             }
+        },
+        "error": {
+            "invalid_auth": "Invalid authentication, please check your email and password.",
+            "cannot_connect": "Could not connect to hOn, please try again later."
+        },
+        "abort": {
+            "reauth_successful": "Re-authentication was successful"
         }
     }
 }

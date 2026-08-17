@@ -1,14 +1,13 @@
 from typing import Optional, Any
 
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.core import callback
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity import DeviceInfo
-from homeassistant.helpers.typing import HomeAssistantType
 from homeassistant.helpers.update_coordinator import (
     CoordinatorEntity,
 )
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
-from pyhon.appliance import HonAppliance
+from .pyhon.appliance import HonAppliance
 
 from .const import DOMAIN
 from .typedefs import HonEntityDescription
@@ -20,7 +19,7 @@ class HonEntity(CoordinatorEntity[DataUpdateCoordinator[dict[str, Any]]]):
 
     def __init__(
         self,
-        hass: HomeAssistantType,
+        hass: HomeAssistant,
         entry: ConfigEntry,
         device: HonAppliance,
         description: Optional[HonEntityDescription] = None,
@@ -37,6 +36,11 @@ class HonEntity(CoordinatorEntity[DataUpdateCoordinator[dict[str, Any]]]):
         else:
             self._attr_unique_id = self._device.unique_id
         self._handle_coordinator_update(update=False)
+
+    @property
+    def available(self) -> bool:
+        """Return True if entity is available."""
+        return super().available and self._device.connection
 
     @property
     def device_info(self) -> DeviceInfo:

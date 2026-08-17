@@ -1,16 +1,16 @@
 import logging
-from dataclasses import dataclass
 from typing import Any
 
-from homeassistant.components.climate import (
-    ClimateEntity,
-    ClimateEntityDescription,
-)
+from homeassistant.components.climate import ClimateEntity
 from homeassistant.components.climate.const import (
     SWING_OFF,
     SWING_BOTH,
     SWING_VERTICAL,
     SWING_HORIZONTAL,
+    FAN_LOW,
+    FAN_MEDIUM,
+    FAN_HIGH,
+    FAN_AUTO,
     ClimateEntityFeature,
     HVACMode,
 )
@@ -19,92 +19,50 @@ from homeassistant.const import (
     ATTR_TEMPERATURE,
     UnitOfTemperature,
 )
-from homeassistant.core import callback
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.helpers.typing import HomeAssistantType
-from pyhon.appliance import HonAppliance
-from pyhon.parameter.range import HonParameterRange
+from .pyhon.appliance import HonAppliance
+from .pyhon.parameter.range import HonParameterRange
 
-from .const import HON_HVAC_MODE, HON_FAN, DOMAIN, HON_HVAC_PROGRAM
+from .const import DOMAIN
+from .descriptions.climate import (
+    CLIMATES,
+    HonACClimateEntityDescription,
+    HonClimateEntityDescription,
+)
 from .entity import HonEntity
 
 _LOGGER = logging.getLogger(__name__)
 
+HON_HVAC_MODE: dict[int, HVACMode] = {
+    0: HVACMode.AUTO,
+    1: HVACMode.COOL,
+    2: HVACMode.DRY,
+    3: HVACMode.DRY,
+    4: HVACMode.HEAT,
+    5: HVACMode.FAN_ONLY,
+    6: HVACMode.FAN_ONLY,
+}
 
-@dataclass(frozen=True)
-class HonACClimateEntityDescription(ClimateEntityDescription):
-    pass
+HON_HVAC_PROGRAM: dict[str, str] = {
+    HVACMode.AUTO: "iot_auto",
+    HVACMode.COOL: "iot_cool",
+    HVACMode.DRY: "iot_dry",
+    HVACMode.HEAT: "iot_heat",
+    HVACMode.FAN_ONLY: "iot_fan",
+}
 
-
-@dataclass(frozen=True)
-class HonClimateEntityDescription(ClimateEntityDescription):
-    mode: HVACMode = HVACMode.AUTO
-
-
-CLIMATES: dict[
-    str, tuple[HonACClimateEntityDescription | HonClimateEntityDescription, ...]
-] = {
-    "AC": (
-        HonACClimateEntityDescription(
-            key="settings",
-            name="Air Conditioner",
-            icon="mdi:air-conditioner",
-            translation_key="air_conditioner",
-        ),
-    ),
-    "REF": (
-        HonClimateEntityDescription(
-            key="settings.tempSelZ1",
-            mode=HVACMode.COOL,
-            name="Fridge",
-            icon="mdi:thermometer",
-            translation_key="fridge",
-        ),
-        HonClimateEntityDescription(
-            key="settings.tempSelZ2",
-            mode=HVACMode.COOL,
-            name="Freezer",
-            icon="mdi:snowflake-thermometer",
-            translation_key="freezer",
-        ),
-        HonClimateEntityDescription(
-            key="settings.tempSelZ3",
-            mode=HVACMode.COOL,
-            name="MyZone",
-            icon="mdi:thermometer",
-            translation_key="my_zone",
-        ),
-    ),
-    "OV": (
-        HonClimateEntityDescription(
-            key="settings.tempSel",
-            mode=HVACMode.HEAT,
-            name="Oven",
-            icon="mdi:thermometer",
-            translation_key="oven",
-        ),
-    ),
-    "WC": (
-        HonClimateEntityDescription(
-            key="settings.tempSel",
-            mode=HVACMode.COOL,
-            name="Wine Cellar",
-            icon="mdi:thermometer",
-            translation_key="wine",
-        ),
-        HonClimateEntityDescription(
-            key="settings.tempSelZ2",
-            mode=HVACMode.COOL,
-            name="Wine Cellar",
-            icon="mdi:thermometer",
-            translation_key="wine",
-        ),
-    ),
+HON_FAN: dict[int, str] = {
+    1: FAN_HIGH,
+    2: FAN_MEDIUM,
+    3: FAN_LOW,
+    4: FAN_AUTO,
+    5: FAN_AUTO,
 }
 
 
 async def async_setup_entry(
-    hass: HomeAssistantType, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
+    hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
 ) -> None:
     entities = []
     entity: HonClimateEntity | HonACClimateEntity
@@ -130,7 +88,7 @@ class HonACClimateEntity(HonEntity, ClimateEntity):
 
     def __init__(
         self,
-        hass: HomeAssistantType,
+        hass: HomeAssistant,
         entry: ConfigEntry,
         device: HonAppliance,
         description: HonACClimateEntityDescription,
@@ -192,14 +150,19 @@ class HonACClimateEntity(HonEntity, ClimateEntity):
     def hvac_mode(self) -> HVACMode:
         if self._device.get("onOffStatus") == 0:
             return HVACMode.OFF
-        else:
-            return HON_HVAC_MODE[self._device.get("machMode")]
+        mode = self._device.get("machMode")
+        if mode not in HON_HVAC_MODE:
+            _LOGGER.warning("Unmapped machMode value %s, falling back to OFF", mode)
+        return HON_HVAC_MODE.get(mode, HVACMode.OFF)
 
     async def async_set_hvac_mode(self, hvac_mode: HVACMode) -> None:
         self._attr_hvac_mode = hvac_mode
         if hvac_mode == HVACMode.OFF:
             await self._device.commands["stopProgram"].send()
-            self._device.sync_command("stopProgram", "settings")
+            # Only carry over the power state - stopProgram's other mandatory
+            # parameters (machMode, tempSel, ...) are generic defaults, not
+            # the user's actual settings, and would otherwise clobber them.
+            self._device.sync_command("stopProgram", "settings", ["onOffStatus"])
         else:
             self._device.settings["settings.onOffStatus"].value = "1"
             setting = self._device.settings["settings.machMode"]
@@ -214,11 +177,11 @@ class HonACClimateEntity(HonEntity, ClimateEntity):
 
     async def async_turn_on(self, **kwargs: Any) -> None:
         await self._device.commands["startProgram"].send()
-        self._device.sync_command("startProgram", "settings")
+        self._device.sync_command("startProgram", "settings", ["onOffStatus"])
 
     async def async_turn_off(self, **kwargs: Any) -> None:
         await self._device.commands["stopProgram"].send()
-        self._device.sync_command("stopProgram", "settings")
+        self._device.sync_command("stopProgram", "settings", ["onOffStatus"])
 
     @property
     def preset_mode(self) -> str | None:
@@ -248,7 +211,10 @@ class HonACClimateEntity(HonEntity, ClimateEntity):
     @property
     def fan_mode(self) -> str | None:
         """Return the fan setting."""
-        return HON_FAN[self._device.get("windSpeed")]
+        speed = self._device.get("windSpeed")
+        if speed not in HON_FAN:
+            _LOGGER.warning("Unmapped windSpeed value %s, falling back to auto", speed)
+        return HON_FAN.get(speed, FAN_AUTO)
 
     async def async_set_fan_mode(self, fan_mode: str) -> None:
         fan_modes = {}
@@ -299,7 +265,7 @@ class HonClimateEntity(HonEntity, ClimateEntity):
 
     def __init__(
         self,
-        hass: HomeAssistantType,
+        hass: HomeAssistant,
         entry: ConfigEntry,
         device: HonAppliance,
         description: HonClimateEntityDescription,

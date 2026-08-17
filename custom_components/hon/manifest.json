@@ -9,7 +9,10 @@
   "iot_class": "cloud_push",
   "issue_tracker": "https://github.com/Andre0512/hon/issues",
   "requirements": [
-    "pyhOn==0.17.5"
+    "aiohttp>=3.8.6",
+    "yarl>=1.8",
+    "typing-extensions>=4.8",
+    "awsiotsdk>=1.21.0"
   ],
   "version": "0.14.0"
 }

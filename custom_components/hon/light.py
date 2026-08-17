@@ -8,52 +8,20 @@ from homeassistant.components.light import (
     ATTR_BRIGHTNESS,
 )
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.core import callback
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.helpers.typing import HomeAssistantType
-from pyhon.appliance import HonAppliance
-from pyhon.parameter.range import HonParameterRange
+from .pyhon.appliance import HonAppliance
+from .pyhon.parameter.range import HonParameterRange
 
 from .const import DOMAIN
+from .descriptions.light import LIGHTS
 from .entity import HonEntity
 
 _LOGGER = logging.getLogger(__name__)
 
 
-LIGHTS: dict[str, tuple[LightEntityDescription, ...]] = {
-    "WC": (
-        LightEntityDescription(
-            key="settings.lightStatus",
-            name="Light",
-            translation_key="light",
-        ),
-    ),
-    "HO": (
-        LightEntityDescription(
-            key="settings.lightStatus",
-            name="Light status",
-            translation_key="light",
-        ),
-    ),
-    "AP": (
-        LightEntityDescription(
-            key="settings.lightStatus",
-            name="Light status",
-            translation_key="light",
-        ),
-    ),
-    "DW": (
-        LightEntityDescription(
-            key="settings.lightStatus",
-            name="Light status",
-            translation_key="light",
-        ),
-    ),
-}
-
-
 async def async_setup_entry(
-    hass: HomeAssistantType, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
+    hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
 ) -> None:
     entities = []
     for device in hass.data[DOMAIN][entry.unique_id]["hon"].appliances:
@@ -73,7 +41,7 @@ class HonLightEntity(HonEntity, LightEntity):
 
     def __init__(
         self,
-        hass: HomeAssistantType,
+        hass: HomeAssistant,
         entry: ConfigEntry,
         device: HonAppliance,
         description: LightEntityDescription,
