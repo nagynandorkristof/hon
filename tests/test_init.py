@@ -12,7 +12,10 @@ import pytest
 
 homeassistant = pytest.importorskip("homeassistant")
 
-from homeassistant.exceptions import ConfigEntryAuthFailed, ConfigEntryNotReady  # noqa: E402
+from homeassistant.exceptions import (
+    ConfigEntryAuthFailed,
+    ConfigEntryNotReady,
+)  # noqa: E402
 
 from custom_components import hon  # noqa: E402
 from custom_components.hon.pyhon.exceptions import (  # noqa: E402
@@ -44,9 +47,7 @@ async def test_setup_entry_raises_auth_failed_on_authentication_error() -> None:
 @pytest.mark.asyncio
 async def test_setup_entry_raises_not_ready_on_connection_error() -> None:
     hass, entry = _make_hass_and_entry()
-    with patch.object(
-        hon.Hon, "create", AsyncMock(side_effect=HonConnectionError())
-    ):
+    with patch.object(hon.Hon, "create", AsyncMock(side_effect=HonConnectionError())):
         with pytest.raises(ConfigEntryNotReady):
             await hon.async_setup_entry(hass, entry)
 

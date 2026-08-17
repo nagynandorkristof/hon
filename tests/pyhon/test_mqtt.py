@@ -14,7 +14,9 @@ def _make_client() -> MQTTClient:
 
 
 @pytest.mark.asyncio
-async def test_watchdog_survives_failed_restart(monkeypatch: pytest.MonkeyPatch) -> None:
+async def test_watchdog_survives_failed_restart(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     """A failed reconnect attempt must be logged and retried on the next
     tick, not silently end the watchdog task (Phase 1 task 5)."""
     client = _make_client()

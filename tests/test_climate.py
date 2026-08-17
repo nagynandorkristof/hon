@@ -17,7 +17,9 @@ from homeassistant.const import FAN_AUTO  # noqa: E402
 from custom_components.hon import climate  # noqa: E402
 
 
-def _make_ac_entity(mach_mode: int | None, wind_speed: int | None) -> climate.HonACClimateEntity:
+def _make_ac_entity(
+    mach_mode: int | None, wind_speed: int | None
+) -> climate.HonACClimateEntity:
     instance = object.__new__(climate.HonACClimateEntity)
     instance._device = MagicMock()
     instance._device.get.side_effect = lambda key, default=None: {

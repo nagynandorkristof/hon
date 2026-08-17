@@ -32,9 +32,7 @@ async def test_user_step_shows_invalid_auth_error() -> None:
         "custom_components.hon.config_flow.Hon.create",
         AsyncMock(side_effect=HonAuthenticationError()),
     ):
-        result = await flow.async_step_user(
-            {"email": "a@b.com", "password": "wrong"}
-        )
+        result = await flow.async_step_user({"email": "a@b.com", "password": "wrong"})
 
     assert result["type"] == "form"
     assert result["errors"]["base"] == "invalid_auth"
@@ -47,9 +45,7 @@ async def test_user_step_shows_cannot_connect_error() -> None:
         "custom_components.hon.config_flow.Hon.create",
         AsyncMock(side_effect=HonConnectionError()),
     ):
-        result = await flow.async_step_user(
-            {"email": "a@b.com", "password": "secret"}
-        )
+        result = await flow.async_step_user({"email": "a@b.com", "password": "secret"})
 
     assert result["type"] == "form"
     assert result["errors"]["base"] == "cannot_connect"
