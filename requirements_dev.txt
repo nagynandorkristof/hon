@@ -4,4 +4,8 @@ mypy>=0.991
 pylint>=2.15
 pytest>=7.4
 pytest-asyncio>=0.21
-pytest-homeassistant-custom-component>=0.13
+# Pinned exactly: this package hard-pins its own `homeassistant==` version,
+# silently overriding whatever HA version the CI matrix asked for. Floating
+# it means mypy's view of the homeassistant API (and stub availability for
+# voluptuous) changes without any change to our own code.
+pytest-homeassistant-custom-component==0.13.109
